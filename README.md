@@ -65,13 +65,16 @@ $ npm install -g bower
 
 ### 언어툴 소스 설치
 - 아래 명령어를 이용해 원하는 디렉토리에 소스를 클론합니다.
-```bash
-$ git clone git@github.com:kargnas/i18n-tool.git
-```
+
+  ```bash
+  $ git clone git@github.com:kargnas/i18n-tool.git
+  ```
+
 - SQLITE 파일은 file/db.sqlite 로 생성이 됩니다. SQLITE 조작을 위해 아래와 같은 명령어 입력을 통해 file 디렉토리의 퍼미션을 쓰기 가능으로 변경합니다.
-```bash
-$ chmod 777 -R i18n-tool/file
-```
+
+  ```bash
+  $ chmod 777 -R i18n-tool/file
+  ```
 
 그 다음, 웹서버와 클론받은 PHP 소스를 연결시키는 과정으로 넘어갑니다.
 
@@ -80,40 +83,44 @@ NGINX와 APACHE2 두 웹서버중 아무 서버나 설치 되어 있어도 상�
 
 #### NGINX가 설치 되있을 경우
 - */etc/nginx/sites-enabled/i18n* 파일을 다음과 같이 수정
-```conf
-server {
-  listen   80;
-  access_log off;
-  server_name i18n.exmaple.com;
-  root /설치한 디렉토리/i18n-tool/app;
-  index index.php;
-  location ~ \.php$ {
-    fastcgi_pass   unix:/var/run/php5-fpm.sock;
-    fastcgi_index  index.php;
-    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
-    fastcgi_buffers 256 16k;
-    fastcgi_buffer_size 32k;
-    fastcgi_max_temp_file_size 0;
-    include         fastcgi_params;
+
+  ```conf
+  server {
+    listen   80;
+    access_log off;
+    server_name i18n.exmaple.com;
+    root /설치한 디렉토리/i18n-tool/app;
+    index index.php;
+    location ~ \.php$ {
+      fastcgi_pass   unix:/var/run/php5-fpm.sock;
+      fastcgi_index  index.php;
+      fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+      fastcgi_buffers 256 16k;
+      fastcgi_buffer_size 32k;
+      fastcgi_max_temp_file_size 0;
+      include         fastcgi_params;
+    }
   }
-}
-```
+  ```
+
 - **/etc/init.d/nginx restart** 를 실행. (nginx 재시작)
 
 #### 아파치가 설치되어 있을 경우
 - */etc/apache2/sites-enabled/i18n* 파일을 다음과 같이 수정
-```apache
-<VirtualHost *:8088>
-  ServerAdmin adm@example.com
-  ServerName i18n.example.com
-  DocumentRoot /설치한 디렉토리/i18n-tool/app
-  
-  php_admin_value display_errors Off
-  
-  ErrorLog  ${APACHE_LOG_DIR}/i18n-error.log
-  CustomLog ${APACHE_LOG_DIR}/i18n-access.log combined
-</VirtualHost>
-```
+
+  ```apache
+  <VirtualHost *:8088>
+    ServerAdmin adm@example.com
+    ServerName i18n.example.com
+    DocumentRoot /설치한 디렉토리/i18n-tool/app
+    
+    php_admin_value display_errors Off
+    
+    ErrorLog  ${APACHE_LOG_DIR}/i18n-error.log
+    CustomLog ${APACHE_LOG_DIR}/i18n-access.log combined
+  </VirtualHost>
+  ```
+
 - **/etc/init.d/apache2 restart** 를 실행. (아파치 재시작)
 
 웹서버 연동 및 설정이 끝났습니다. 이제 소스만 만지는 단계입니다.
@@ -122,9 +129,11 @@ server {
 #### Composer 업데이트
 - PHP 는 다른 서버 언어와 비슷하게 **Composer**라는 의존성 관리 툴이 있습니다. (CocoaPods/XCode, NPM/node)
 - 설치한 디렉토리로 이동하여 composer.phar 을 아래와 같은 명령어로 실행합니다.
-```
-./composer.phar update
-```
+
+  ```
+  ./composer.phar update
+  ```
+
 #### Bower 업데이트
 - JS 의 의존성 관리 도구 입니다. Bower 는 위에서 이미 설치를 했으니, 소스 디렉토리에서 아래 명령어로 패키지들을 설치 합니다.
 - `bower install`
@@ -136,9 +145,10 @@ server {
 ### PHP 오류 로그 확인
 - 아파치: **/var/log/apache2/i18n-error.log** 에서 확인 할 수 있습니다.
 - NginX: **/etc/php5/fpm/pool.d/www.conf** 파일에서 아래의 내용을 추가하면 PHP 에러 로그를 남길 수 있습니다.
-```
-php_admin_value[error_log] = /var/log/로그파일명.log
-```
+
+  ```
+  php_admin_value[error_log] = /var/log/로그파일명.log
+  ```
 
 ### 페이지에 아무것도 안나올 때
 - composer 업데이트를 하지 않은 경우 아무것도 나오지 않고 PHP 오류 로그에서 클래스 찾을 수 없음 에러가 납니다.
