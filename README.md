@@ -32,6 +32,7 @@
 - SQLITE 환경이므로 DB 설치 필요 없음. (mysql 필요 없음)
 - Bower 설치 (NPM)
 - bitbucket 에 대상 프로그램 소스가 있어야함.
+- Linux 와 Mac에서 테스트되었습니다. 아래 설명은 우분투 기준입니다.
 
 ## 리눅스 서버 세팅
 ### 웹서버(NGINX) 및 PHP 설치
