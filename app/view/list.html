@@ -1,0 +1,103 @@
+<div class="ListContainer">
+	<table class="ListTable">
+		<tbody class="Middle" ng-if="isLoading">
+			<tr>
+				<td>
+					<div class="Loading" ng-if="isLoading">
+						<div class="-spinner-ring -primary-"></div>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+		<tbody ng-if="!isLoading">
+			<tr ng-show="isDeveloperMode">
+				<td class="FormCell">
+					<div class="StringForm" ng-controller="StringFormController">
+						<form ng-submit="submit()">
+							<input id="input-key" type="text" ng-model="key" class="Key" placeholder="Key">
+							<input id="input-string" type="text" ng-model="string" class="String" placeholder="Text">
+							<input type="submit" value="새 문구 추가" class="-btn -primary-" ng-if="!isLoading">
+
+							<div class="-spinner-ring -primary-" ng-if="isLoading"></div>
+						</form>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="ListCell">
+					<div class="StringListWrap">
+						<div class="StringList">
+							<div class="StringListDescription" ng-if="stringList.getStringList().length == 0">
+								<div class="BigIcon">
+									<i class="fa fa-exclamation-circle"></i>
+								</div>
+								<h3>데이터가 존재하지 않습니다.</h3>
+								<p>소스 저장소로부터 데이터를 받아오기 위해, 좌측 하단의 <em>개발자모드</em>를 클릭 후, <em>모두 가져오기</em> 버튼이나 <em>새 데이터 가져오기</em>를 눌러주세요.</p>
+							</div>
+							<table class="StringListTable -table" ng-if="stringList.getStringList().length > 0">
+								<tbody>
+									<tr ng-repeat="info in stringList.getStringList() | orderBy: 'key' track by info.key" ng-controller="ListKeyStringController" ng-class="{editing: isCurrentEditing(), request: isRequest, modified: info.modified}" ng-click="makeCurrentEditing()" ng-show="stringList.ifFilterInfo(inputOriginal, {filterMarking: filterMarking, filterBlank: filterBlank})">
+										<td class="Key">
+											<div ng-if="isRequest" class="Loader">
+												<div class="-spinner-ring -warning- _minor"></div>
+												<span>저장중</span>
+											</div>
+											<div class="Key" title="{{ input.key }}" ng-if="!isRequest">
+												<i class="fa" ng-class="{'fa-circle': info.modified, 'fa-circle-o': !info.modified}" ng-click="toggleModified()"></i> {{ input.key }}
+											</div>
+										</td>
+										<td class="String">
+											<div class="OriginalText" ng-show="baseStringList.getInfo(info.key).string != input.string">{{ baseStringList.getInfo(info.key).string }}</div>
+											<div class="OriginalText NoDefine" ng-show="!baseStringList.getInfo(info.key).string"><i class="fa fa-exclamation-triangle"></i> 한글텍스트가 입력되지 않음</div>
+											<label class="String"><textarea type="text" name="string" class="editable" ng-class="{editing: isCurrentEditing()}" ng-model="input.string" ng-readonly="!isCurrentEditing()" focus-me="isCurrentEditing()"></textarea></label>
+										</td>
+										<td class="Button">
+											<button ng-click="delete()" class="-btn -error- _unstyled_ _minor" ng-if="isDeveloperMode">
+												<i class="fa fa-remove"></i>
+											</button>
+											<div class="IsNull" ng-show="!input.string">
+												<label><input type="checkbox" ng-change="input.string = (isNull ? null : '')" ng-model="isNull"> <span>NULL</span></label>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="ButtonCell">
+					<button class="-btn _unstyled_" ng-click="exportDownload('excel')">
+						<i class="fa fa-download"></i> 엑셀 다운로드
+					</button>
+					<button class="-btn _unstyled_" ng-click="exportDownload()" ng-if="isDeveloperMode">
+						<i class="fa fa-download"></i> 언어파일 다운로드
+					</button>
+
+					<button class="-btn _unstyled_" ng-click="commitData()" ng-if="!isLoadingCommit">
+						<i class="fa fa-send"></i> 이 데이터들을 업로드
+					</button>
+					<div class="-btn _unstyled_" ng-if="isLoadingCommit">
+						업로드 중..
+						<div class="-spinner-waves -warning- _small">
+							<span class="-addon"></span> <span class="-addon"></span> <span class="-addon"></span>
+							<span class="-addon"></span> <span class="-addon"></span> <span class="-addon"></span>
+						</div>
+					</div>
+
+					<button class="-btn _unstyled_" ng-click="importFreshData()" ng-show="isDeveloperMode" ng-if="!isLoadingImport">
+						<i class="fa fa-git"></i> 새 데이터 가져오기
+					</button>
+					<div class="-btn _unstyled_" ng-if="isLoadingImport">
+						가져오는 중..
+						<div class="-spinner-waves -warning- _small">
+							<span class="-addon"></span> <span class="-addon"></span> <span class="-addon"></span>
+							<span class="-addon"></span> <span class="-addon"></span> <span class="-addon"></span>
+						</div>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

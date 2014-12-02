@@ -1,0 +1,20 @@
+<?
+	/**
+	 * 대상 Key 를 DB에서 완전히 소멸 시켜버리는 기능
+	 */
+
+	include "../../../_head.php";
+
+	\App\Util\Login::errorIfNotLogin();
+
+	$request = json_decode(file_get_contents("php://input"));
+	$lang    = $request->lang;
+	$type    = $request->type;
+	$key     = $request->key;
+
+	$key = new \App\Model\Key($key);
+	$key->clearByType($type);
+
+	echo json_encode(array(
+		                 'success' => true
+	                 ));

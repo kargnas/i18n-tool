@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html lang="en" ng-app="loginApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html lang="en" ng-app="loginApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html lang="en" ng-app="loginApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" ng-app="loginApp" class="no-js"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Login</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-wdth, initial-scale=1">
+	<link rel="stylesheet" href="bower_components/html5-boilerplate/css/normalize.css">
+	<link rel="stylesheet" href="bower_components/html5-boilerplate/css/main.css">
+	<link rel="stylesheet" href="bower_components/angular-hotkeys/build/hotkeys.min.css">
+	<script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
+	<script src="bower_components/bowser/bowser.min.js"></script>
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/maxmertkit/1.0.5/css/maxmertkit.css">
+	<script src="//cdn.jsdelivr.net/maxmertkit/1.0.5/js/maxmertkit.js"></script>
+
+	<link rel="stylesheet/less" type="text/css" href="less/style.less"/>
+	<script>
+		less = {
+			env: "development",
+			async: false,
+			fileAsync: false,
+			functions: {},
+			dumpLineNumbers: "comments"
+			// relativeUrls: false,
+			// rootpath: ":/a.com/"
+		};
+	</script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.5/less.min.js"></script>
+</head>
+<body ng-controller="LoginCtrl" class="LoginScreen">
+<div ng-controller="LoginFormCtrl">
+	<form ng-submit="submit()">
+		<div class="LoginFormAreaOuter">
+			<div class="LoginFormArea">
+				<div class="LoginBlocker" ng-show="noIE">
+					<p>
+						<b>죄송합니다.</b><br>
+						이 프로그램은 대량의 언어 자원을 다루기 때문에, Internet Explorer는 지원하지 않습니다.<br>
+						Google Chrome 이나 Safari 로 이용해주세요.<br>
+					</p>
+					<div class="Buttons">
+						<a href="http://www.google.com/chrome/" target="_blank" class="-fbtn white">Google Chrome</a>
+						<!--<a href="http://www.mozilla.or.kr/ko/firefox/new/" target="_blank" class="-fbtn white">Mozilla Firefox</a>-->
+						<a href="http://support.apple.com/ko_KR/downloads/#safari" target="_blank" class="-fbtn white">Apple Safari</a>
+					</div>
+				</div>
+				<div class="LoginFormAreaInner" ng-hide="noIE">
+					<div class="LoginInput">
+						<input type="password" placeholder="비밀번호 입력" ng-model="password">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="LoginButton" ng-class="{hide: !password}">
+			<input type="submit" class="-fbtn black" value="로그인">
+		</div>
+	</form>
+</div>
+
+
+<!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+  -->
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-elastic/elastic.js"></script>
+<script src="bower_components/angular-hotkeys/build/hotkeys.min.js"></script>
+<script src="js/model.js"></script>
+<script src="js/login/app.js"></script>
+<script src="js/login/services.js"></script>
+<script src="js/login/controllers/login.js"></script>
+</body>
+</html>

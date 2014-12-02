@@ -1,0 +1,21 @@
+{
+	"name": "yellomobile/i18ntool",
+	"description": "i18ntool",
+	"minimum-stability": "stable",
+	"authors": [
+		{
+			"name": "Sang Rak, Choi",
+			"email": "kars@kargn.as"
+		}
+	],
+	"autoload": {
+		"psr-0": {
+			"App": "classes/"
+		}
+	},
+	"require": {
+		"lichtner/fluentpdo": "dev-master",
+		"gentle/bitbucket-api": "dev-master",
+		"heartsentwined/yaml": "1.*"
+	}
+}

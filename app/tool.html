@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html lang="en" ng-app="toolApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html lang="en" ng-app="toolApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html lang="en" ng-app="toolApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" ng-app="toolApp" class="no-js"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+	<title>Localization tool for super convenience</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="bower_components/html5-boilerplate/css/normalize.css">
+	<link rel="stylesheet" href="bower_components/html5-boilerplate/css/main.css">
+	<link rel="stylesheet" href="bower_components/angular-hotkeys/build/hotkeys.min.css">
+	<script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
+	<script src="bower_components/bowser/bowser.min.js"></script>
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/maxmertkit/1.0.5/css/maxmertkit.css">
+	<script src="//cdn.jsdelivr.net/maxmertkit/1.0.5/js/maxmertkit.js"></script>
+
+	<link rel="stylesheet/less" type="text/css" href="less/style.less"/>
+	<script>
+		less = {
+			env: "development",
+			async: false,
+			fileAsync: false,
+			functions: {},
+			dumpLineNumbers: "comments"
+			// relativeUrls: false,
+			// rootpath: ":/a.com/"
+		};
+
+		if (bowser.msie) {
+			location.href = '/login.html';
+		}
+	</script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.5/less.min.js"></script>
+</head>
+<body ng-controller="BodyCtrl">
+<div class="TypeList">
+	<ul class="TypeList">
+		<li ng-cloak ng-repeat="info in typeList">
+			<a ng-href="#/list/{{ info.code }}/summary" ng-class="{'active': selectedType == info.code}">{{ info.type }}</a>
+		</li>
+	</ul>
+</div>
+<div class="LeftSideContainer">
+	<div class="LeftSideInner">
+		<div class="LanguageList">
+			<ul class="LanguageList">
+				<li ng-class="{_active_: selectedLanguage.code == 'summary'}">
+					<a ng-href="#/list/{{ selectedType }}/summary">요약</a>
+				</li>
+				<li ng-cloak ng-repeat="info in languageList" ng-class="{_active_: selectedLanguage.code == info.code}">
+					<a ng-href="#/list/{{ selectedType }}/{{ info.code }}">{{ info.lang }}</a>
+				</li>
+			</ul>
+		</div>
+		<div class="DeveloperMode">
+			<dl>
+				<dt>{{ getCurrentTypeDesc() }} 메뉴</dt>
+				<dd ng-show="selectedLanguage.code != 'summary'"><a class="-fbtn" ng-href="#/list/{{ selectedType }}/{{ selectedLanguage.code }}" ng-class="{active: selectedMenu == 'importer'}" ng-show="selectedMenu == 'importer'">일괄 입력기</a></dd>
+				<dd ng-show="selectedLanguage.code != 'summary'"><a class="-fbtn" ng-href="#/list/{{ selectedType }}/{{ selectedLanguage.code }}/importer" ng-class="{active: selectedMenu == 'importer'}" ng-show="selectedMenu != 'importer'">일괄 입력기</a></dd>
+				<dd><a class="-fbtn" ng-click="clearCurrentMarks()">마킹 초기화</a></dd>
+
+				<dt>데이터 조작</dt>
+				<dd><div class="-fbtn" ng-class="{active: isLoadingCommitAll}" ng-click="commitAll()"><i class="fa fa-spin fa-circle-o-notch" ng-show="isLoadingCommitAll"></i> 모두 업로드</div></dd>
+				<dd><div class="-fbtn" ng-show="isDeveloperMode" ng-class="{active: isLoadingImportAll}" ng-click="importAll()"><i class="fa fa-spin fa-circle-o-notch" ng-show="isLoadingImportAll"></i> 모두 가져오기</div></dd>
+				<!--<dd><div class="-fbtn">모두 가져오기</div></dd>-->
+				<dd><div class="-fbtn" ng-show="isDeveloperMode" ng-click="clearCurrentData()">모든 언어 초기화</div></dd>
+
+				<dt>필터</dt>
+				<dd><div class="-fbtn" ng-click="filterMarking = !filterMarking" ng-class="{active: filterMarking}">마킹 된 것만 보기</div></dd>
+				<dd><div class="-fbtn" ng-click="filterBlank = !filterBlank" ng-class="{active: filterBlank}">빈 값만 보기</div></dd>
+
+				<dt>옵션</dt>
+				<dd><div class="-fbtn" ng-click="isMarkingAfterEditing = !isMarkingAfterEditing" ng-class="{active: isMarkingAfterEditing}">수정시 자동 마킹</div></dd>
+				<dd><div class="-fbtn" ng-class="{active: isDeveloperMode}" ng-click="isDeveloperMode = !isDeveloperMode">개발자모드</div></dd>
+			</dl>
+		</div>
+	</div>
+</div>
+<div ng-view class="ViewContainer" ng-class="{'isRtl': selectedLanguage.isRtl}"></div>
+
+<!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+  -->
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-elastic/elastic.js"></script>
+<script src="bower_components/angular-hotkeys/build/hotkeys.min.js"></script>
+<script src="js/model.js"></script>
+<script src="js/lib/php.js"></script>
+<script src="js/tool/app.js?3"></script>
+<script src="js/tool/services.js?3"></script>
+<script src="js/tool/controllers/importer.js?3"></script>
+<script src="js/tool/controllers/list.js?3"></script>
+<script src="js/tool/controllers/summary.js?3"></script>
+<script src="components/version/version.js"></script>
+<script src="components/version/version-directive.js"></script>
+<script src="components/version/interpolate-filter.js"></script>
+</body>
+</html>

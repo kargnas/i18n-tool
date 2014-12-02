@@ -1,0 +1,69 @@
+<div class="SummaryContainer">
+	<table class="SummaryLayoutTable">
+		<tbody class="Middle" ng-show="!isFetch || isLoading || message">
+			<tr>
+				<td>
+					<div class="-spinner-ring -primary-" ng-show="isLoading"></div>
+					<button ng-click="fetch()" class="-fbtn" ng-hide="isLoading">요약 데이터 불러오기</button>
+					<div class="Message" ng-hide="message">
+						데이터가 많을 경우 최대 30초 정도 걸릴 수 있습니다.
+					</div>
+					<div ng-show="message" class="Message">
+						{{ message }}
+					</div>
+				</td>
+			</tr>
+		</tbody>
+		<tbody ng-show="isFetch && !isLoading && !message">
+			<tr>
+				<td class="SummaryLayoutHeader">
+					<div class="SummaryTableWrap">
+						<table class="SummaryTable">
+							<colgroup>
+								<col width="200">
+							</colgroup>
+							<thead>
+								<tr>
+									<th class="Key">Key</th>
+									<th class="LanguageTitle" ng-repeat="info in summary.languageIndexInfo | orderBy: 'index'">
+										{{ info.language.lang }}
+									</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="SummaryLayoutContent">
+					<div class="SummaryTableWrap">
+						<div class="SummaryTableInner">
+							<table class="SummaryTable">
+								<colgroup>
+									<col width="200">
+								</colgroup>
+								<tbody>
+									<tr ng-repeat="info in summary.items" ng-class="{modified: info.modified}" ng-if="ifFilterInfo(info, {filterMarking: filterMarking, filterBlank: filterBlank})">
+										<td class="Key">
+											{{ info.key }}
+										</td>
+										<td class="String" ng-repeat="languageInfo in summary.languageIndexInfo | orderBy: 'index'" ng-class="{'isRtl': languageInfo.language.isRtl}">
+											<p>{{ info.infoList[languageInfo.index].string }}</p>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="SummaryLayoutBottom">
+					<button class="-btn _unstyled_" ng-click="exportDownload('excel')">
+						<i class="fa fa-download"></i> 엑셀 다운로드
+					</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

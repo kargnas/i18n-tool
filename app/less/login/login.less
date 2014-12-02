@@ -1,0 +1,29 @@
+body.LoginScreen {
+	background: url(../images/background.png) no-repeat center center fixed;
+	background-size: cover;
+
+	div.LoginFormAreaOuter { display: table; position: absolute; height: 100%; width: 100%;
+		div.LoginFormArea { display: table-cell; vertical-align: middle;
+			div.LoginBlocker { margin: 0 auto; text-align: center;
+				p { font-size: 12px; text-shadow: 0 -1px rgba(0,0,0,.4); line-height: 20px; color: #fff; }
+				.Buttons { margin-top: 20px;
+					a { text-decoration: none; }
+				}
+			}
+			div.LoginFormAreaInner { margin-left: auto; margin-right: auto; width: 200px;
+				div.LoginInput {
+					input {
+						width: 100%; padding: 10px 6px 8px 6px; margin: 0; border: none; outline: none; background: rgba(255,255,255,.6); border-radius: 7px; box-shadow: 0 0 3px rgba(0,0,0,.05); color: #000; font-size: 12px;
+						&:focus {  }
+					}
+				}
+			}
+		}
+	}
+
+	.LoginButton { position: absolute; bottom: 40px; left: 0; right: 0; text-align: center; opacity: 1;
+		-webkit-transition: all 0.7s;
+		transition: all 0.7s;
+		&.hide { display: block; opacity: 0; }
+	}
+}

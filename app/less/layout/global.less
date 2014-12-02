@@ -1,0 +1,56 @@
+body { background: #2c3e50; }
+
+.-btn._unstyled_ { color: #fff; text-decoration: none; }
+
+@leftSideWidth: 100px;
+
+div.TypeList { position: absolute; right: 0; top: 0; left: 0; height: 40px; overflow: hidden; text-align: left;
+	ul.TypeList { display: inline-block; padding: 0; margin: 0 0 0 (@leftSideWidth + 10px); list-style: none; text-align: left;
+		> li { display: inline-block; margin: 0 0 0 0;
+			a { display: inline-block; padding: 0 10px; font-size: 12px; text-decoration: none; color: @colorSilver; line-height: 40px; height: 40px;
+				&.active { background: @colorPeterRiver; color: #fff; }
+			}
+		}
+	}
+	.GlobalButton { display: inline-block; margin: 3px 0 0 3px; text-align: left; }
+}
+div.LeftSideContainer { position: absolute; right: 0; top: 40px; left: 0; bottom: 0; width: @leftSideWidth; overflow: hidden;
+	.LeftSideInner { position: relative; width: 100%; height: 100%;
+		div.LanguageList { padding-top: 10px;
+			ul.LanguageList { padding: 0; margin: 0; list-style: none;
+				li { padding: 0; margin: 0;
+					a { display: block; padding: 7px 10px; color: #ccc; font-size: 12px; text-decoration: none; }
+
+					&._active_ {
+						a { color: #fff; background: @colorPeterRiver; }
+					}
+					&:hover {
+						a { color: #FFF; }
+					}
+				}
+			}
+		}
+
+		div.DeveloperMode { position: absolute; bottom: 0; left: 0; right: 0; margin-top: 15px; text-align: center;
+			dl { margin: 0; font-size: 0;
+				.-fbtn { display: block; text-decoration: none; margin: 0; }
+				dt { font-weight: bold; text-align: left; margin: 10px 0 5px 7px; color: @colorClouds; font-size: 11px; }
+				dd { margin-top: 2px; }
+			}
+		}
+	}
+}
+
+div.ViewContainer { position: absolute; left: @leftSideWidth; top: 40px; bottom: 0; right: 0; overflow: hidden; background: #fff; border-top-left-radius: 5px; border-left: 1px solid #000; border-top: 1px solid #000; }
+
+.-fbtn { font-size: 11px; padding: 6px 10px; border: 1px solid @colorPeterRiver; border-radius: 5px; color: @colorPeterRiver; text-align: center; cursor: pointer; background: transparent; transition: 0.3s all;
+	div& { padding: 6px 0; margin: 0 3px 2px 3px; }
+	&.active { background: @colorPeterRiver; color: #FFF; }
+
+	&.black { color: #000; border-color: #000;
+		&.active { background: #000; }
+	}
+	&.white { color: #fff; border-color: #fff;
+		&.active { background: #fff; color: #000; }
+	}
+}

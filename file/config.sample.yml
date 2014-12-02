@@ -1,0 +1,64 @@
+---
+# git id/pass는 bitbucket 의 아이디/비밀번호를 적어야합니다.
+git:
+  id:
+  pass:
+
+# 언어툴 웹페이지 로그인 비밀번호
+webPassword: loginpass
+
+source:
+  android:
+    resourceType: android
+    git:
+      repo:
+        account: 1km
+        name: app-android
+        branch: language
+    languages:
+      - lang: ko_KR
+        name: 한국어
+        path: /res/values-ko/strings.xml
+      - lang: en_US
+        name: 영어
+        path: /res/values/strings.xml
+      - lang: ar
+        name: 아랍어
+        path: /res/values-ar/strings.xml
+        isRtl: true
+  ios:
+    resourceType: iphone
+    git:
+      repo:
+        account: 1km
+        name: app-ios
+        branch: language
+    languages:
+      - lang: ko_KR
+        name: 한국어
+        path: /ko.lproj/Localizable.strings
+      - lang: en_US
+        name: 영어
+        path: /en.lproj/Localizable.strings
+      - lang: ar
+        name: 아랍어
+        path: /ar.lproj/Localizable.strings
+        isRtl: true
+  server:
+    resourceType: server
+    git:
+      repo:
+        account: 1km
+        name: web-api-java
+        branch: language
+    languages:
+      - lang: ko_KR
+        name: 한국어
+        path: /src/main/message/Messages_ko.properties
+      - lang: en_US
+        name: 영어
+        path: /src/main/message/Messages_en.properties
+      - lang: ar
+        name: 아랍어
+        path: /src/main/message/Messages_ar.properties
+        isRtl: true
