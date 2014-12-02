@@ -36,15 +36,13 @@
 
 ## 리눅스 서버 세팅
 ### 웹서버(NGINX) 및 PHP 설치
-
-  ```bash
-  $ sudo apt-get -y install python-software-properties
-  $ sudo add-apt-repository ppa:ondrej/php5
-  $ sudo apt-get update
-  $ sudo apt-get upgrade
-  $ apt-get install -y nginx php5-fpm php5-dev php5-curl php5-gd php5-cli make git
-  ```
-
+```bash
+$ sudo apt-get -y install python-software-properties
+$ sudo add-apt-repository ppa:ondrej/php5
+$ sudo apt-get update
+$ sudo apt-get upgrade
+$ apt-get install -y nginx php5-fpm php5-dev php5-curl php5-gd php5-cli make git
+```
 - 위의 방식으로 설치할 경우 PHP 5.5 버전이 설치됩니다.
 
 ### JS 의존성 관리 툴 설치
